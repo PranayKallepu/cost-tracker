@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { addDoc, updateDoc, doc, collection } from "firebase/firestore";
 import { db } from "../../services/firebase";
-import { addItem, updateItem } from "../../features/items/itemsSlice";
 import {
   Button,
   FormControl,
@@ -17,7 +15,6 @@ const ItemForm = ({ item, onClose, userId }) => {
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (item) {
@@ -28,6 +25,7 @@ const ItemForm = ({ item, onClose, userId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
     setLoading(true);
 
     try {
@@ -38,15 +36,13 @@ const ItemForm = ({ item, onClose, userId }) => {
           name,
           cost: Number(cost),
         });
-        dispatch(updateItem({ id: item.id, name, cost: Number(cost) }));
         alert("✅ Item updated successfully");
       } else {
         // Add new item
-        const docRef = await addDoc(collection(db, "users", userId, "items"), {
+        await addDoc(collection(db, "users", userId, "items"), {
           name,
           cost: Number(cost),
         });
-        dispatch(addItem({ id: docRef.id, name, cost: Number(cost) }));
         alert("✅ Item added successfully");
       }
       onClose();

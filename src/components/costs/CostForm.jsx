@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { addDoc, updateDoc, doc, collection } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { addCost, updateCost } from "../../features/costs/costsSlice";
@@ -17,7 +16,6 @@ const CostForm = ({ cost, onClose, userId }) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (cost) {
@@ -38,9 +36,7 @@ const CostForm = ({ cost, onClose, userId }) => {
           description,
           amount: Number(amount),
         });
-        dispatch(
-          updateCost({ id: cost.id, description, amount: Number(amount) })
-        );
+
         alert("✅ Cost updated successfully");
       } else {
         // Add new cost
@@ -48,9 +44,6 @@ const CostForm = ({ cost, onClose, userId }) => {
           description,
           amount: Number(amount),
         });
-        dispatch(
-          addCost({ id: docRef.id, description, amount: Number(amount) })
-        );
         alert("✅ Cost added successfully");
       }
       onClose();

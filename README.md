@@ -1,12 +1,57 @@
-# React + Vite
+# Cost Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application built with React and Vite for tracking and managing personal or business expenses. This application provides an intuitive interface for users to monitor their spending habits and maintain their financial records.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User authentication and authorization
+- Real-time expense tracking
+- Responsive design with modern UI components
+- Data persistence using Firebase
+- State management with Redux Toolkit
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend Framework:** React 18
+- **Build Tool:** Vite
+- **UI Components:** Chakra UI
+- **Styling:** Tailwind CSS
+- **State Management:** Redux Toolkit
+- **Authentication & Database:** Firebase
+- **Animation:** Framer Motion
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone [repository-url]
+cd cost-tracker
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root directory and add your Firebase configuration:
+
+```env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+```
+
+## Run Application
+
+```bash
+npm run dev
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

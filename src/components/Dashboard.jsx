@@ -61,10 +61,13 @@ const Dashboard = () => {
   const borderColor = useColorModeValue("gray.200", "gray.600");
 
   useEffect(() => {
+    let unsubscribeItems = () => {};
+    let unsubscribeCosts = () => {};
+
     if (user) {
       // Subscribe to items
       const itemsQuery = query(collection(db, "users", user.uid, "items"));
-      const unsubscribeItems = onSnapshot(itemsQuery, (snapshot) => {
+      unsubscribeItems = onSnapshot(itemsQuery, (snapshot) => {
         const itemsList = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -74,19 +77,20 @@ const Dashboard = () => {
 
       // Subscribe to costs
       const costsQuery = query(collection(db, "users", user.uid, "costs"));
-      const unsubscribeCosts = onSnapshot(costsQuery, (snapshot) => {
+      unsubscribeCosts = onSnapshot(costsQuery, (snapshot) => {
         const costsList = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         dispatch(setCosts(costsList));
       });
-
-      return () => {
-        unsubscribeItems();
-        unsubscribeCosts();
-      };
     }
+
+    // Cleanup function
+    return () => {
+      unsubscribeItems();
+      unsubscribeCosts();
+    };
   }, [user, dispatch]);
 
   const handleDeleteItem = async (itemId) => {
